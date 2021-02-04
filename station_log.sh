@@ -37,8 +37,8 @@ Main(){
 	#-----------------------------
 	# Setting Variables
 	#-----------------------------
-	fileName='logging_data1'
-	header='Range (m), tx bitrate, signal'
+	fileName='logging_data1.csv'
+	header='Range (m), tx bitrate, signal (dbm)'
 	
 	#-----------------------------
 	echo "checking if connected to an access point"
@@ -51,7 +51,9 @@ Main(){
 	GetConnectionParameters
 	
 	echo "writing header"
-	sed -i 'Ns\.*\$header\' "./$fileName"
+	sed -i '1d' "./$fileName"
+	sed -i '1s/^/"$header"/' "./$fileName"
+	
 	
 	echo "writing to log file"
 	echo "$range, $txMCS, $signal" >> "./$fileName"
